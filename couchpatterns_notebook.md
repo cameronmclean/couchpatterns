@@ -92,3 +92,44 @@ COUCHDB_DATABASES = (
      ('comfyapp’, 'http://127.0.0.1:5984/patterns’),
  )
  ```
+
+OK!
+
+NOTE - needed to remove the line
+`from django.db.models.options import get_verbose_name`
+from /Users/cameronmclean/anaconda/envs/couch/lib/python2.7/site-packages/couchdbkit/ext/django/schema.py
+and add 
+
+```
+# Calculate the verbose_name by converting from InitialCaps to "lowercase with spaces".
+get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).lower().strip()
+```
+in order to make couchdbkit work with Django 1.7
+
+#####201401006
+
+OK - maybe not couchdbkit django extension - bit hard to figure out exactly what is going on.
+Can try own manual management using python package couchdb
+http://pythonhosted.org//CouchDB/index.html
+'pip install couchdb'
+
+also, to the couchdb local.ini (/usr/local/etc/couchdb/)
+added 
+
+```
+[query_servers]
+python = /Users/cameronmclean/anaconda/envs/couch/bin/couchpy
+```
+
+this way we can use python to write views and map/reduce fucntions. seems to work. cool!
+
+Also, downloaded website template from HTML5up http://html5up.net/
+copied index.html to django app /templates dir, and placed remaining folders in /static.
+needed to modify index.html and style.css to refelct the paths for static files had chaged, also modified style.css to replace stock images with sciency ones.
+
+licenses.txt in /static/images captures the CC licences - but need to put these on the webpage (along with HTML5up attribution).
+
+Wrote a urls.py and basic views.py to hook up 'home' with the new index.html.
+
+Looks good!
+

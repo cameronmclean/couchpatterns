@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'couchdbkit.ext.django',
+#    'couchdbkit.ext.django',
     'comfyapp',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,9 +58,9 @@ WSGI_APPLICATION = 'patternsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-COUCHDB_DATABASES = (
-    ('comfyapp', 'http://127.0.0.1:5984/patterns'),
-    )
+#COUCHDB_DATABASES = (
+#    ('comfyapp', 'http://127.0.0.1:5984/patterns'),
+#    )
 
 DATABASES = {
     'default': {

@@ -7,5 +7,7 @@ from couchdbkit.ext.django.schema import *
 class Pattern(Document):
 	title = StringProperty()
 	authors = ListProperty()
+	context = StringProperty()
+	problem = StringProperty()
 	forces = DictProperty()
-
+	evidence = ListProperty()
