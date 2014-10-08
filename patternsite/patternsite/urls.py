@@ -7,5 +7,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^home/', 'comfyapp.views.home', name='home'),
+    url(r'^$', 'comfyapp.views.home', name='home'),
+  # url(r'^home/', 'comfyapp.views.home', name='home'),
+    url(r'^add/', 'comfyapp.views.add', name='add'),
+    url(r'^nope/', 'comfyapp.views.nope', name='nope'),
+
 )

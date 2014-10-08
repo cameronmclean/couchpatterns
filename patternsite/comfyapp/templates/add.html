@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<!--
+	Big Picture by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Lab Patterns</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="The site for laboratory design patterns. Connecting laboratory practice with our scientific record." />
+		<meta name="keywords" content="Design Patterns, Laboratory, Biology, Linked Data, Experiment, Protocol" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="../static/js/jquery.min.js"></script>
+		<script src="../static/js/jquery.poptrox.min.js"></script>
+		<script src="../static/js/jquery.scrolly.min.js"></script>
+		<script src="../static/js/jquery.scrollgress.min.js"></script>
+		<script src="../static/js/skel.min.js"></script>
+		<script src="../static/js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="../static/css/skel.css" />
+			<link rel="stylesheet" href="../static/css/style.css" />
+			<link rel="stylesheet" href="../static/css/style-wide.css" />
+			<link rel="stylesheet" href="../static/css/style-normal.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+
+				<!-- Logo -->
+					<h1 id="logo">Lab Patterns</h1>
+				
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#intro">Intro</a></li>
+							<li><a href="#one">What I Do</a></li>
+							<li><a href="#two">Who I Am</a></li>
+							<li><a href="#work">My Work</a></li>
+							<li><a href="#contact">Contact</a></li>
+						</ul>
+					</nav>
+
+			</header>					
+		<!--			
+					<p> Add and new pattern here!</p>
+							<form method="post" action="#">
+								<div class="row half">
+									<div class="6u"><input type="text" name="name" placeholder="Name" /></div>
+									<div class="6u"><input type="email" name="email" placeholder="Email" /></div>
+								</div>
+								<div class="row half">
+									<div class="12u"><textarea name="message" placeholder="Message" rows="6"></textarea></div>
+								</div>
+								<div class="row">
+									<div class="12u">
+										<ul class="actions">
+											<li><input type="submit" value="Send Message" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+
+					</div>
+				</div>
+			</section>
+		-->	
+
+		<p>Oh. Hi there. </br>
+			This is where the forms to add a new pattern will go. </br>
+			Hopefully there will be some kind of cool lab picture background, dynamicforms, and a big bootstrap submit button at the end...</p>
+			Lets try and add a new doc, with just name and authors.
+	
+		<form method='post'>
+				<input class="6u" name="name" type="text" placeholder="Pattern Name" />
+				<input class="6u" name="authors" type="text" placeholder="Author names, separated by comma" />
+				<input class='actions' type='submit' value='Add Pattern' />
+				{% csrf_token %}
+			</form>
+	
+
+	<!--		<ul>
+			#	{% for doc in patterns %}
+					<li style="color: #1234FF;">Document ID: {{ doc.id }}</li>
+			#		{% for k, v in doc.items %}					
+					<li><strong>{{ k }}</strong> : {{ v }}</li>
+			#		{% endfor %}
+			#	{% endfor %}
+				<li>test list item</li>
+			</ul>
+		!-->
+	
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<!-- Icons -->
+				<!--	<ul class="actions">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					</ul>
+				!-->
+				<!-- Menu -->
+					<ul class="menu">
+						<li>&copy; Lab Patterns</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+			
+			</footer>
+
+	</body>
+</html>

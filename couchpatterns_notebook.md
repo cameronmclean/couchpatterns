@@ -133,3 +133,31 @@ Wrote a urls.py and basic views.py to hook up 'home' with the new index.html.
 
 Looks good!
 
+
+######20141008
+OK.
+So got simple forms working via the "add" view in django to create a new document in the couchdb database.
+
+Rather than use the UUID that couchdb provides as the _id, i created a slug from the pattern name
+to render doc id as lowercase, alphanumberic, spaces converted to dashes .
+This makes for nice URI/Ls for repurposing data directly from couchs RESTfulAPI.
+i.e pattern name "Photons Alive!" is id and accessed by
+http://127.0.0.1:5984/patterns/photons-alive
+
+slug.py does the job using regex and python string methods
+
+```python
+import re
+
+def slug(string_to_slug):
+	words = str(string_to_slug)
+	lower = words.lower().replace(' ', '-')
+	slugged = re.sub(r'[^a-z0-9-]+', '', lower)
+	return slugged
+```
+
+next is to define all the form fields, and hook them up to request.POST 
+####tricky as we want to 1) allow for multiple authors, 2)multiple forces (i,e add remove dynamic) and define a custom fields..
+//perhaps leave out the custom fields for now - user would need to know if its a string, int, list, dict, attachment etc...
+
+#### for later work - editing patterns - would be good to dynamically grab all the keys/values so that as any pattern or document evolves, we dont have to change the edit view. 
