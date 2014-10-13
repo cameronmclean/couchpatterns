@@ -156,8 +156,100 @@ def slug(string_to_slug):
 	return slugged
 ```
 
-next is to define all the form fields, and hook them up to request.POST 
+next is to define all the form fields, and hook them up to request.POST so that the add view takes in and stores all the things we want.
 ####tricky as we want to 1) allow for multiple authors, 2)multiple forces (i,e add remove dynamic) and define a custom fields..
 //perhaps leave out the custom fields for now - user would need to know if its a string, int, list, dict, attachment etc...
 
 #### for later work - editing patterns - would be good to dynamically grab all the keys/values so that as any pattern or document evolves, we dont have to change the edit view. 
+
+
+######20141013
+
+Ok - remember to `source activate couch` before launching and doing all the things each dev session.
+
+ALSO - remember, at the moment we are running mySQL and couchdb - with the idea fof using mySQL to manage useraccounts, and couch just to store the pattern data.
+This is to avoid having to custom make our own sessions and authentication framework.
+
+Makes deployment complex/pain, but radid development possible (for me, with limited backgorund in coding and the web)
+
+installed 
+`pip install django-registration-redux`
+The registration package compatible with django 1,7
+http://stackoverflow.com/questions/23037807/django-registration-compatibility-issue-with-django-1-7?rq=1
+
+then ran `python manage.py migrate` to install teh app and mySQL tables/models
+
+django-registration docs are here
+https://django-registration.readthedocs.org/en/latest/quickstart.html
+
+to ursl.py added
+`(r'^accounts/', include('registration.backends.default.urls')),`
+
+creates teh following url paths
+
+```
+^accounts/ ^activate/complete/$ [name='registration_activation_complete']
+^accounts/ ^activate/(?P<activation_key>\w+)/$ [name='registration_activate']
+^accounts/ ^register/$ [name='registration_register']
+^accounts/ ^register/complete/$ [name='registration_complete']
+^accounts/ ^register/closed/$ [name='registration_disallowed']
+^accounts/ ^login/$ [name='auth_login']
+^accounts/ ^logout/$ [name='auth_logout']
+^accounts/ ^password/change/$ [name='auth_password_change']
+^accounts/ ^password/change/done/$ [name='auth_password_change_done']
+^accounts/ ^password/reset/$ [name='auth_password_reset']
+^accounts/ ^password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$ [name='auth_password_reset_confirm']
+^accounts/ ^password/reset/complete/$ [name='auth_password_reset_complete']
+^accounts/ ^password/reset/done/$ [name='auth_password_reset_done'] 
+```
+
+Created a template in couchpatterns/patternsite/comfyapp/templates/resgistration/registration_form.html
+
+just uses the {{ form }} context variable and magically addds usernam, email, psw1/2.
+Cool.
+Hooked up a "submit" button with the post method and the action pointing to the same page.
+`<form action="/accounts/register/" method='post'>`
+Getting the registration form working on the page was as simple as 
+```
+<form action="/accounts/register/" method='post'>
+			{% csrf_token %}
+{{form}}
+<br>
+<div id="cam">
+<input type="submit" value="Submit" />
+</div>
+</form>
+```
+
+(note - submit button wrapped in cam <div> just to center it with css)
+
+After the user hits 'submit', the form data is validated and added to the mySQL db.
+the user is emailed an activation key and link.
+I dont have an SMTP server set up, so putting 
+`EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
+into settings.py causeses the email to print to console rather than go to the smtp server.
+we need to specify a activation\_email.txt and activation\_email_subject.txt for the subject and body of the email that is sent.
+This txt/email uses the {{ activation_key }} context variable.
+
+copying the activation url works, and then sends us to the next url/template -
+`/templates/registration/activation.complete.html` 
+(this changes the db to user=active)
+
+we are next asked to login - this requires a template at
+`templates/registration/login.html`
+- created this with a simple hand made form
+
+```
+<form id="login_form" method="post" action="/accounts/login/">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+
+            <input type="submit" value="submit" />
+        </form>
+```
+upon submit, this redirects us to accounts/profile - which is not found in urls.py...
+
+

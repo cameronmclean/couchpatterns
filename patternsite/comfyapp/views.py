@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import Http404
 import re
 from comfyapp import slug
+from django.contrib.auth.decorators import login_required
 
 ############################################
 # settting up connections and couchdb here - maybe not the best place but trying for now...
@@ -23,6 +24,11 @@ def home(request):
 def nope(request):
 	return render(request, 'nope.html')
 
+def logout_view(request):
+	logout(request)
+	return redirect ("/")
+
+@login_required
 def add(request):
 	
 	#check to see if logged in/authenticated..

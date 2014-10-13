@@ -54,6 +54,8 @@ MIDDLEWARE_CLASSES = (
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ROOT_URLCONF = 'patternsite.urls'
 
 WSGI_APPLICATION = 'patternsite.wsgi.application'
