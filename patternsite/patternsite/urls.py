@@ -11,5 +11,6 @@ urlpatterns = patterns('',
   # url(r'^home/', 'comfyapp.views.home', name='home'),
     url(r'^add/', 'comfyapp.views.add', name='add'),
     url(r'^nope/', 'comfyapp.views.nope', name='nope'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
 )
