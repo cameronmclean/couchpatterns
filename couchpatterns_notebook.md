@@ -252,4 +252,35 @@ we are next asked to login - this requires a template at
 ```
 upon submit, this redirects us to accounts/profile - which is not found in urls.py...
 
+added `LOGIN_REDIRECT_URL = '/'` to settings.py - not ideal - better if we can capture the page
+user was on before login and return that, but OK for now.
+
+current problem - POSTing a new pattern with the @login_required throws a 
+
+>MultiValueDictKeyError at /add/
+>"'context'"
+
+somthing to do with the decorator buggering up getting the 'context' from the POST.
+might be because context is a reserved / "context" variable?
+try changing context names for pattern form/input/post/couch and see...
+NOPE - I was just half way through adding new fields - the view was expecting a POST that contained problem and context, the template form didnt have these yet...
+duh!
+
+OK - next to fix html <header> for the correct nav bar, create dyanmic forms, and properly style the page...
+
+#####20141015
+
+OK - so fixed minor issue with login redirects.
+Needed to add
+`<input name="next" type="hidden" value="{{next}}">`
+into the login form, while keeping 
+`LOGIN_REDIRECT_URL = '/'` in settings.py
+
+answer was found here
+http://stackoverflow.com/questions/16307095/django-registration-login-redirection
+
+Now clicking login picks up the page you are on and passes it as a context variable {{ next }} to the login view for the redirect.
+
+cool bananas. Hopefully this will work later when browsing while not logged in and wanting to edit a pattern > login > display forms for editing.
+
 

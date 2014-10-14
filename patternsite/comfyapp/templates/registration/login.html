@@ -8,7 +8,7 @@
 
     <body background="../../static/images/gel.jpg">
         <br>
-        <h1>Login to Lab Protocols</h1>
+        <h1>Login to Lab Patterns</h1>
         <br>
         <form id="login_form" method="post" action="/accounts/login/">
             {% csrf_token %}
@@ -16,6 +16,8 @@
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
+
+            <input name="next" type="hidden" value="{{next}}">
 
             <input type="submit" value="submit" />
         </form>

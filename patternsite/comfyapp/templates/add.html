@@ -32,18 +32,21 @@
 
 				<!-- Logo -->
 					<h1 id="logo">Lab Patterns</h1>
-				
+		
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li><a href="#intro">Intro</a></li>
-							<li><a href="#one">What I Do</a></li>
-							<li><a href="#two">Who I Am</a></li>
-							<li><a href="#work">My Work</a></li>
-							<li><a href="#contact">Contact</a></li>
+							<li><a href="{% url 'home' %}">Intro</a></li>
+							<li><a href="{% url 'registration_register' %}">Register</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+							{% endif %}
+							<li><a href="{% url 'home' %}">Browse Patterns</a></li>
+							<li><a href="{% url 'add' %}">Add A Pattern</a></li>							
 						</ul>
 					</nav>
-
 			</header>					
 		<!--			
 					<p> Add and new pattern here!</p>
@@ -68,6 +71,7 @@
 				</div>
 			</section>
 		-->	
+		{% if user.is_authenticated %}
 
 		<p>Oh. Hi there. </br>
 			This is where the forms to add a new pattern will go. </br>
@@ -77,10 +81,16 @@
 		<form method='post'>
 				<input class="6u" name="name" type="text" placeholder="Pattern Name" />
 				<input class="6u" name="authors" type="text" placeholder="Author names, separated by comma" />
+				<input class="6u" name="context" type="textarea" placeholder="Context" />
+				<input class="6u" name="problem" type="text" placeholder="Problem" />
 				<input class='actions' type='submit' value='Add Pattern' />
 				{% csrf_token %}
 			</form>
-	
+		{% else % }
+
+		<h2>You need to be logged in to add a pattern...</h2>	
+
+		{% endif %}
 
 	<!--		<ul>
 			#	{% for doc in patterns %}

@@ -34,13 +34,17 @@
 					<h1 id="logo">Lab Patterns</h1>
 				
 				<!-- Nav -->
-					<nav id="nav">
+				<nav id="nav">
 						<ul>
-							<li><a href="#intro">Intro</a></li>
+							<li><a href="{% url 'home' %}">Intro</a></li>
 							<li><a href="{% url 'registration_register' %}">Register</a></li>
-							<li><a href="#two">Who I Am</a></li>
-							<li><a href="#work">My Work</a></li>
-							<li><a href="#contact">Contact</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>
+							{% endif %}
+							<li><a href="{% url 'home' %}">Browse Patterns</a></li>
+							<li><a href="{% url 'add' %}">Add A Pattern</a></li>							
 						</ul>
 					</nav>
 

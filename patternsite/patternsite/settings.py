@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
-
+LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ROOT_URLCONF = 'patternsite.urls'
