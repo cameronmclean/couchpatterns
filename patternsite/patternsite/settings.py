@@ -56,6 +56,20 @@ ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+#######################
+# the below email settings are here so that django inbuilt auth/admin password reset can work
+# it usees dummy vales for now - email still prints to console as set by backend above.
+########################
+EMAIL_HOST      = 'my-domain.com'                   
+EMAIL_HOST_PASSWORD = 'my cpanel password'
+EMAIL_HOST_USER = 'my cpanel user'
+EMAIL_PORT      = 25
+EMAIL_USE_TLS   = False
+DEFAULT_FROM_EMAIL  = 'webmaster@my-host.com'
+SERVER_EMAIL    = 'root@my-domain.com'
+###########################
+
+
 ROOT_URLCONF = 'patternsite.urls'
 
 WSGI_APPLICATION = 'patternsite.wsgi.application'

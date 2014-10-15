@@ -283,4 +283,77 @@ Now clicking login picks up the page you are on and passes it as a context varia
 
 cool bananas. Hopefully this will work later when browsing while not logged in and wanting to edit a pattern > login > display forms for editing.
 
+recap on registration 
+-----
+working with django 1.7, mySQL
+
+http://lightbird.net/dbe/forum3.html has useful example
+
+1) pip install django-registration-redux
+
+2) to setttings.py add
+`'registration',` to installed apps
+and
+`LOGIN_REDIRECT_URL = '/'`
+`ACCOUNT_ACTIVATION_DAYS = 7`
+`LOGIN_REDIRECT_URL = '/'`
+`EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
+
+3) to ursl.py add
+`(r'^accounts/', include('registration.backends.default.urls')),`
+
+4) run `python manage.py migrate` to set up the db with the user/registration info
+
+5) In static/registration/ create templates for 
+
+activation_complete.html
+login.html                   # include  `<input name="next" type="hidden" value="{{next}}">` in the form
+logout.html
+registration_complete.html
+registration_form.html       # uses {{ form }} for all the appropriate fields
+activation\_email_subject.txt
+activation\_email.txt         # {{ activation_key }} passes the key needed to append to the activate url
+
+6) the dummy email backend specified in the settings.py causes the email to print to console rather than connect to SMTP server.
+need to manually copy and paste activation url for testing.
+
+7) enabling support for passwrd chage or reset - using built-in django auth and admin. The views and templates already exist
+we just need to hook them up.
+
+To our couchapp urls.py add/ ensure we have
+`from django.contrib import admin, auth`
+
+and put the url patterns like so
+```
+    url(r'^password/change/$', auth.views.password_change, name='password_change'),
+    url(r'^password/change/done/$', auth.views.password_change_done, name='password_change_done'),
+    url(r'^password/reset/$', auth.views.password_reset, name='password_reset'),
+    url(r'^accounts/password/reset/done/$', auth.views.password_reset_done, name='password_reset_done'),
+    url(r'^password/reset/complete/$', auth.views.password_reset_complete, name='password_reset_complete'),
+    url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', auth.views.password_reset_confirm, name='password_reset_confirm'),
+```
+the passwrd rest/change views.py are at
+django/contrib/auth
+
+the templates for the views are kept in
+django/contrib/admin/templates/registration/
+
+also - added to settings.py
+```
+EMAIL_HOST      = 'my-domain.com'                   
+EMAIL_HOST_PASSWORD = 'my cpanel password'
+EMAIL_HOST_USER = 'my cpanel user'
+EMAIL_PORT      = 25
+EMAIL_USE_TLS   = False
+DEFAULT_FROM_EMAIL  = 'webmaster@my-host.com'
+SERVER_EMAIL    = 'root@my-domain.com'
+```
+these are dummy for now - EMAIL_BACKEND is still set to console, but naming the variables probably helps as they are required if actaully using adminy email things..
+
+end
+-----
+
+righto then - interestingly - if email is not in db for passwrd reset - no email is sent - cool! 
+added a link from the login page to change or request password reset. 
+done with registration things for now!
 

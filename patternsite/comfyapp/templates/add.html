@@ -6,11 +6,11 @@
 -->
 <html>
 	<head>
-		<title>Lab Patterns</title>
+		 <title>Add a new pattern</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="The site for laboratory design patterns. Connecting laboratory practice with our scientific record." />
 		<meta name="keywords" content="Design Patterns, Laboratory, Biology, Linked Data, Experiment, Protocol" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+	
 		<script src="../static/js/jquery.min.js"></script>
 		<script src="../static/js/jquery.poptrox.min.js"></script>
 		<script src="../static/js/jquery.scrolly.min.js"></script>
@@ -23,7 +23,10 @@
 			<link rel="stylesheet" href="../static/css/style-wide.css" />
 			<link rel="stylesheet" href="../static/css/style-normal.css" />
 		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	
+	
+	 
+       
 	</head>
 	<body>
 
@@ -86,7 +89,8 @@
 				<input class='actions' type='submit' value='Add Pattern' />
 				{% csrf_token %}
 			</form>
-		{% else % }
+		
+		{% else %}
 
 		<h2>You need to be logged in to add a pattern...</h2>	
 
